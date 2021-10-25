@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { Menu } from 'antd';
+import {connect} from 'react-redux'
 
 import "./leftNav.less"
 import logo from "../../assets//images/logo.png"
 import menuList from '../../config/menuConfig';
-<<<<<<< HEAD
-import memoryUtils from "../../utils/memoryUtils";
-=======
->>>>>>> a363ce41c3c954ad1d6e1df543334f60f8c555ec
+import { setHeadTitle } from '../../redux/action'
+
 
 const { SubMenu } = Menu;
 class LeftNav extends Component {
@@ -37,12 +36,13 @@ class LeftNav extends Component {
         })
     }
 
-<<<<<<< HEAD
     hasAuth = (item) => {
         const { key, isPublic } = item
 
-        const menus = memoryUtils.user.role.menus
-        const username = memoryUtils.user.username
+        const menus = this.props.user.role.menus;
+        // 站视全部
+        // const menus = ["/home", "/user", "/products", "/role", "/charts"];
+        const username = this.props.user.username;
         /*
         1. 如果当前用户是admin
         2. 如果当前item是公开的
@@ -59,11 +59,14 @@ class LeftNav extends Component {
     }
 
 
-    getMeduNodes = menuList => {
+    getMenuNodes = menuList => {
         const path = this.props.location.pathname;
         return menuList.reduce((pre, item) => {
             if (this.hasAuth(item)) {
                 if (!item.children) {
+                    if (path === item.key || path.indexOf(item.key) === 0) {
+                        this.props.setHeadTitle(item.title)
+                    }
                     pre.push(
                         <Menu.Item key={item.key} icon={item.icon}>
                             <Link to={item.key}>{item.title}</Link>
@@ -81,46 +84,18 @@ class LeftNav extends Component {
 
                     pre.push(
                         <SubMenu key={item.key} icon={item.icon} title={item.title}>
-                            {this.getMeduNodes(item.children)}
+                            {this.getMenuNodes(item.children)}
                         </SubMenu>
                     )
                 }
                 return pre
             }
-=======
-    getMeduNodes = menuList => {
-        const path = this.props.location.pathname;
-        return menuList.reduce((pre, item) => {
-            if (!item.children) {
-                pre.push(
-                    <Menu.Item key={item.key} icon={item.icon}>
-                        <Link to={item.key}>{item.title}</Link>
-                    </Menu.Item>
-                )
-            } else {
-                //查找与当前路径匹配的字Item
-                const cItem = item.children.find(
-                    (cItem) => 0 === path.indexOf(cItem.key)
-                )
-                //如果存在，说明当前item的子列表需要打开
-                if (cItem) {
-                    this.openkey = item.key;
-                }
-
-                pre.push(
-                    <SubMenu key={item.key} icon={item.icon} title={item.title}>
-                        {this.getMeduNodes(item.children)}
-                    </SubMenu>
-                )
-            }
-            return pre
->>>>>>> a363ce41c3c954ad1d6e1df543334f60f8c555ec
         }, [])
     }
 
     //在第一次render之前执行一次，为第一次render准备数据（必须同步）
     UNSAFE_componentWillMount() {
-        this.menuNodes = this.getMeduNodes(menuList);
+        this.menuNodes = this.getMenuNodes(menuList);
     }
     render() {
 
@@ -172,4 +147,6 @@ class LeftNav extends Component {
                         <Menu.Item key="11" icon={<PieChartOutlined />}>饼图</Menu.Item>
 </SubMenu> */}
 
-export default withRouter(LeftNav)
+export default connect((state) => ({ user: state.user }), { setHeadTitle })(
+    withRouter(LeftNav)
+);

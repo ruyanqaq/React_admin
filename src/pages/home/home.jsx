@@ -50,7 +50,7 @@ export default class Home extends Component {
                     />
                 </Card>
                 <Card className='home-center'>
-                    <span>欢迎使用河狸兽后台管理系统</span>
+                    <span>欢迎使用后台管理系统</span>
                 </Card>
                 <Card
                     title="任务"

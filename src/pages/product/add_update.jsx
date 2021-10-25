@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Card, Form, Input, Cascader, Button } from "antd";
+import { Card, Form, Input, Cascader, Button,message } from "antd";
 import { RollbackOutlined } from '@ant-design/icons'
 
 import RichTextEditor from './rich-text-editor'
-import { reqCategorys } from "../../api";
+import { reqCategorys,reqAddOrUpdateProduct } from "../../api";
 import LinkButton from '../../components/link-button'
 import PicturesWall from "./pictures-wall";
 
@@ -121,11 +121,18 @@ export default class ProductAddUpdate extends Component {
         const pCategoryId = categoryIds[0]
         const categoryId = categoryIds[1]
         const imgs = this.pw.current.getImgs()
-        const detail = this.editor.getDetails()
+        const detail = this.editor.current.getDetail()
         //要更新/添加的商品对象
         const product = { name, desc, price, imgs, detail, pCategoryId, categoryId }
-        if(this.isUpdate){
+        if (this.isUpdate) {
             product._id = this.product._id
+        }
+        const result = await reqAddOrUpdateProduct(product)
+        if (result.status === 0) {
+            message.success(`${this.isUpdate ? '更新' : '添加'}商品成功`)
+            this.props.history.goBack()
+        } else {
+            message.error(`${this.isUpdate ? '更新' : '添加'}商品失败`)
         }
     }
 

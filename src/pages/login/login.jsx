@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom'
 import {
     Form, Input, Button, Checkbox, message
 } from 'antd'
+
+import {connect} from 'react-redux'
 import {
     UserOutlined, LockOutlined
 } from "@ant-design/icons"
@@ -11,28 +13,19 @@ import { reqLogin } from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
 import storageUtils from '../../utils/storageUtils'
 import logo from "../../assets//images/logo.png"
+import { login } from "../../redux/action";
 
 const Item = Form.Item
 
-export default class Login extends Component {
+class Login extends Component {
 
     onFinish = async values => {
         const { username, password } = values
-        const result = await reqLogin(username, password) // {status: 0, data: user}  {status: 1, msg: 'xxx'}
-        if (result.status === 0) {
-            const user = result.data;
-            //登陆成功
-            message.success("登陆成功")
-
-            //保存user
-            memoryUtils.user = user
-            storageUtils.saveUser(user)
-
-            //跳转到管理界面
-            this.props.history.replace('/')
-        } else {
-            //如果失败，分发成功的同步action
-            message.error(result.msg)
+        try {
+            //调用异步请求，
+            this.props.login(username, password);
+        } catch (error) {
+            console.log("请求出错", error);
         }
     }
 
@@ -58,8 +51,8 @@ export default class Login extends Component {
     render() {
 
         const memoryUser = memoryUtils.user
-        if(memoryUser && memoryUser.id){
-            return <Redirect to='/'/>
+        if (memoryUser && memoryUser.id) {
+            return <Redirect to='/' />
         }
 
         return (
@@ -141,6 +134,7 @@ export default class Login extends Component {
     }
 }
 
+export default connect((state) => ({ user: state.user }), { login })(Login);
 
 /*
 1. 高阶函数

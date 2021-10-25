@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { ExclamationCircleOutlined, CloudOutlined } from '@ant-design/icons'
 import { Modal } from "antd";
-
+import { connect } from 'react-redux'
 import menuList from '../../config/menuConfig'
 import { formateDate } from '../../utils/dataUtils'
 import { reqWeather } from '../../api'
 import './head.less'
+
+import { logout } from "../../redux/action";
 import { withRouter } from 'react-router'
 import storageUtils from '../../utils/storageUtils'
 import memoryUtils from '../../utils/memoryUtils'
@@ -29,15 +31,15 @@ class Head extends Component {
         this.setState({ weather })
     }
 
-    getTitle = () => {
+    /* getTitle = () => {
         let title
         const path = this.props.location.pathname
         menuList.forEach(item => {
             if (item.key === path) {
                 title = item.title
             } else if (item.children) {
-                const cItem = item.children.find(cItem => 
-                    path.indexOf(cItem.key)===0
+                const cItem = item.children.find(cItem =>
+                    path.indexOf(cItem.key) === 0
                 )
                 if (cItem) {
                     title = cItem.title
@@ -45,7 +47,7 @@ class Head extends Component {
             }
         })
         return title
-    }
+    } */
 
     Logout = () => {
         //显示确认框
@@ -55,11 +57,12 @@ class Head extends Component {
             content: "确定退出登陆吗?",
 
             onOk: () => {
-                //删除user
-                storageUtils.removeUser()
-                memoryUtils.user = {}
-                //跳转到登录页
-                this.props.history.replace('/login')
+                /*  //删除user
+                 storageUtils.removeUser()
+                 memoryUtils.user = {}
+                 //跳转到登录页
+                 this.props.history.replace('/login') */
+                this.props.logout();
             },
             onCancel: () => {
                 console.log("取消");
@@ -76,11 +79,12 @@ class Head extends Component {
     }
     render() {
         const { currentTime, weather } = this.state
-        const title = this.getTitle()
+        const user = this.props.user
+        const title = this.props.headTitle
         return (
             <div className='header'>
                 <div className="header-top">
-                    <span>欢迎，{memoryUtils.user.username}</span>
+                    <span>欢迎，{user.username}</span>
                     <LinkButton onClick={this.Logout}>退出</LinkButton>
                 </div>
                 <div className="header-bottom">
@@ -101,4 +105,10 @@ class Head extends Component {
     }
 }
 
-export default withRouter(Head)
+export default connect(
+    state => ({
+        headTitle: state.headTitle,
+        user: state.user
+    }),
+    { logout }
+)(withRouter(Head))

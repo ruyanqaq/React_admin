@@ -10,6 +10,7 @@ export default class RichTextEditor extends Component {
     static propTypes = {
         detail: PropTypes.string,
     };
+    
     uploadImageCallBack(file) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();

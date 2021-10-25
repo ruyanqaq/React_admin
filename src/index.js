@@ -3,9 +3,11 @@
 */
 
 import ReactDOM from "react-dom";
-import {BrowserRouter} from 'react-router-dom'
+import { Provider } from "react-redux";
 import React from 'react'
+
 import App from "./App";
+import store from './redux/store'
 import memoryUtils from './utils/memoryUtils'
 import storageUtils from './utils/storageUtils'
 
@@ -14,7 +16,8 @@ const user = storageUtils.getUser()
 memoryUtils.user = user
 
 ReactDOM.render(
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>,
-    document.getElementById("root"))
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById("root")
+)
