@@ -3,7 +3,7 @@
     1). 描述项目
     2). 技术选型 
     3). API接口/接口文档/测试接口
-    
+
 ## 2. 启动项目开发
     1). 使用react脚手架创建项目
     2). 开发环境运行: npm start
@@ -32,14 +32,14 @@
         git pull origin dev
     7). 如果远程修改
         git pull origin dev
-        
+
 ## 4. 创建项目的基本结构
     api: ajax请求的模块
     components: 非路由组件
     pages: 路由组件
     App.js: 应用的根组件
     index.js: 入口js
-    
+
 ## 5 引入antd
     下载antd的包
     按需打包: 只打包import引入组件的js/css
@@ -51,7 +51,7 @@
         config-overrides.js
     使用antd的组件
         根据antd的文档编写
-        
+
 ## 6. 引入路由
     下载包: react-router-dom
     拆分应用路由:
@@ -61,7 +61,7 @@
       <BrowserRouter>
       <Switch>
       <Route path='' component={}/>
-      
+
 ## 7. Login的静态组件
     1). 自定义了一部分样式布局
     2). 使用antd的组件实现登陆表单界面
@@ -92,7 +92,7 @@
             form.validateFields((error, values) => {
               if(!error) {通过了验证, 发送ajax请求}
             })
-            
+
 ## 9. 高阶函数与高阶组件
     1. 高阶函数
         1). 一类特别的函数
@@ -114,7 +114,7 @@
     3. 高阶组件与高阶函数的关系
         高阶组件是特别的高阶函数
         接收一个组件函数, 返回是一个新的组件函数
-        
+
 # day02
 ## 1. 后台应用
     启动后台应用: mongodb服务必须启动
@@ -122,7 +122,7 @@
         访问测试: post请求的参数在body中设置
         保存测试接口
         导出/导入所有测试接口
-        
+
 ## 2. 编写ajax代码
     1). ajax请求函数模块: api/ajax.js
         封装axios + Promise
@@ -158,7 +158,7 @@
             在返回promise的表达式左侧写await: 不想要promise, 想要promise异步执行的成功的value数据
         c. 哪里写async?
             await所在函数(最近的)定义的左侧写async
-            
+
 ## 3. 实现登陆(包含自动登陆)
     login.jsx
         1). 调用登陆的接口请求
@@ -178,7 +178,7 @@
             兼容不同的浏览器
     memoryUtils.js
         用来在内存中保存数据(user)的工具类
-        
+
 ## 4. 搭建admin的整体界面结构
     1). 整体布局使用antd的Layout组件
     2). 拆分组件
@@ -187,7 +187,7 @@
     3). 子路由
         定义路由组件
         注册路由
-        
+
 ## 5. LeftNav组件
     1). 使用antd的组件
         Menu / Item / SubMenu
@@ -211,7 +211,7 @@
             selectedKey是当前请求的path
         刷新子菜单路径时, 自动打开子菜单列表?
             openKey是 一级列表项的某个子菜单项是当前对应的菜单项
-            
+
 # day03
 
 ## 1. Header组件
@@ -235,7 +235,7 @@
     7). 抽取通用的类链接按钮组件
         通过...透传所有接收的属性: <Button {...props} />    <LinkButton>xxxx</LinkButton>
         组件标签的所有子节点都会成为组件的children属性
-        
+
 ## 2. jsonp解决ajax跨域的原理
     1). jsonp只能解决GET类型的ajax请求跨域问题
     2). jsonp请求不是ajax请求, 而是一般的get请求
@@ -247,7 +247,7 @@
             接收到请求处理产生结果数据后, 返回一个函数调用的js代码, 并将结果数据作为实参传入函数调用
         浏览器端:
             收到响应自动执行函数调用的js代码, 也就执行了提前定义好的回调函数, 并得到了需要的结果数据
-           
+
 # day04: Category组件
 
 ## 1. 使用antd组件构建分类列表界面
@@ -255,12 +255,12 @@
     Table
     Button
     Icon
-        
+
 ## 2. 相关接口请求函数
     获取一级/二级分类列表
     添加分类
     更新分类
-        
+
 ## 3. 异步显示一级分类列表    
     设计一级分类列表的状态: categorys
     异步获取一级分类列表: componentDidMount(){}
@@ -272,7 +272,7 @@
     setState()的问题
         setState()更新状态是异步更新的, 直接读取状态值还是旧的状态值
         setState({}, [callback]), 回调函数是在状态更新且界面更新之后执行, 可以在此获取最新的状态
-        
+
 ## 5. 更新分类
     1). 界面
         antd组件: Modal, Form, Input
@@ -282,8 +282,9 @@
         父组(Category)件得到子组件(AddForm)的数据(form)
         调用更新分类的接口
         重新获取分类列表
-        
-        
+
+
+​        
 # day05
 
 ## 1. 添加分类
@@ -304,7 +305,7 @@
     2). 匹配路由的逻辑:
         默认: 逐层匹配   <Route path='/product' component={ProductHome}/>
         exact属性: 完全匹配
-        
+
 ## 3. 分页实现技术(2种)
     1). 前台分页
         请求获取数据: 一次获取所有数据, 翻页时不需要再发请求
@@ -320,7 +321,7 @@
     
     3). 如何选择?
         基本根据数据多少来选择
-        
+
 ## 4. ProductHome组件
     1). 分页显示
        界面: <Card> / <Table> / Select / Icon / Input / Button
@@ -353,7 +354,7 @@
     
     5). 进入添加界面
         history.push('/product/addupdate')
-        
+
 ## 5. ProductDetail组件
     1). 读取商品数据: this.props.location.state.product
     2). 显示商品信息: <Card> / List 
@@ -379,7 +380,7 @@
         当选择某个一级分类项时, 异步获取对应的二级分类列表, 生成二级分类options, 并添加为当前option的children
     
     3). 表单数据收集与表单验证
-    
+
 ## 2. PicturesWall
     1). antd组件
         Upload / Modal / Icon
@@ -402,7 +403,7 @@
     1). 使用基于react的富文本编程器插件库: react-draft-wysiwyg
     2). 参考库的DEMO和API文档编写
     3). 如果还有不确定的, 百度搜索, 指定相对准确的关键字
-    
+
 ## 2. 完成商品添加与修改功能
     1). 收集输入数据
         通过form收集: name/desc/price/pCategoryId/categoryId
@@ -459,18 +460,18 @@
     1). Component存在的问题?
         a. 父组件重新render(), 当前组件也会重新执行render(), 即使没有任何变化
         b. 当前组件setState(), 重新执行render(), 即使state没有任何变化
-  
+      
     2). 解决Component存在的问题
         a. 原因: 组件的shouldcomponentUpdate()默认返回true, 即使数据没有变化render()都会重新执行
         b. 办法1: 重写shouldComponentUpdate(), 判断如果数据有变化返回true, 否则返回false
         c. 办法2: 使用PureComponent代替Component
         d. 说明: 一般都使用PureComponent来优化组件性能
-  
+      
     3). PureComponent的基本原理
         a. 重写实现shouldComponentUpdate()
         b. 对组件的新/旧state和props中的数据进行浅比较, 如果都没有变化, 返回false, 否则返回true
         c. 一旦componentShouldUpdate()返回false不再执行用于更新的render()
-  
+      
     4). 面试题:
         组件的哪个生命周期勾子能实现组件优化?
         PureComponent的原理?
@@ -481,7 +482,7 @@
     2). 添加用户
     3). 修改用户
     4). 删除用户
-    
+
 ## 5. 导航菜单权限控制
     1). 基本思路(依赖于后台): 
         角色: 包含所拥有权限的所有菜单项key的数组: menus=[key1, key2, key3]
@@ -541,7 +542,7 @@
 	组件分2类: 
 		ui组件(components): 不使用redux相关API
 		容器组件(containers): 通过connect()()生成的组件
-		
+
 # day10
 ## 1. 在项目中搭建redux整套环境
     1). store.js
@@ -558,7 +559,7 @@
     4). 相关组件: 
         left-nav.js
         header.js
-        
+
 ## 3. 通过redux管理登陆用户信息user数据
     1). action-types.js
     2). actoin.js
@@ -616,7 +617,7 @@
 ## 2. 前台404界面
     <Redirect from='/' to='/home' exact/>
     <Route component={NotFound}/>
-    
+
 ## 3. 打包应用运行
     1). 解决生产环境ajax跨域问题
         使用nginx的反向代理解决(一般由后台配置)
@@ -625,4 +626,3 @@
         a. 问题: 刷新某个路由路径时, 会出现404的错误
         b. 原因: 项目根路径后的path路径会被当作后台路由路径, 去请求对应的后台路由, 但没有
         c. 解决: 使用自定义中间件去读取返回index页面展现
-    

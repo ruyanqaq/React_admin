@@ -5,10 +5,7 @@ const menuList = [
     title: "首页", // 菜单标题名称
     key: "/home", // 对应的 path
     icon: <HomeOutlined/>, // 图标名称
-<<<<<<< HEAD
     isPublic: true, // 公开的
-=======
->>>>>>> a363ce41c3c954ad1d6e1df543334f60f8c555ec
   },
   {
     title: "商品",

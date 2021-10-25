@@ -5,10 +5,9 @@ import { Menu } from 'antd';
 import "./leftNav.less"
 import logo from "../../assets//images/logo.png"
 import menuList from '../../config/menuConfig';
-<<<<<<< HEAD
+
 import memoryUtils from "../../utils/memoryUtils";
-=======
->>>>>>> a363ce41c3c954ad1d6e1df543334f60f8c555ec
+
 
 const { SubMenu } = Menu;
 class LeftNav extends Component {
@@ -37,7 +36,6 @@ class LeftNav extends Component {
         })
     }
 
-<<<<<<< HEAD
     hasAuth = (item) => {
         const { key, isPublic } = item
 
@@ -87,7 +85,9 @@ class LeftNav extends Component {
                 }
                 return pre
             }
-=======
+        })
+    }
+    
     getMeduNodes = menuList => {
         const path = this.props.location.pathname;
         return menuList.reduce((pre, item) => {
@@ -114,7 +114,6 @@ class LeftNav extends Component {
                 )
             }
             return pre
->>>>>>> a363ce41c3c954ad1d6e1df543334f60f8c555ec
         }, [])
     }
 
